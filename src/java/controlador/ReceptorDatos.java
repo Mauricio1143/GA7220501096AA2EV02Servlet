@@ -28,6 +28,8 @@ public class ReceptorDatos extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    
+    //Esto es un Servlet
     protected void processRequest(HttpServletRequest request, HttpServletResponse response, String msg)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -39,7 +41,7 @@ public class ReceptorDatos extends HttpServlet {
             out.println("<title>Servlet ReceptorDatos</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ReceptorDatos at " + msg+ "</h1>");
+            out.println("<h1>Servlet ReceptorDatos at " + msg + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -57,12 +59,39 @@ public class ReceptorDatos extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         String user = request.getParameter("usuario");
-        String pass = request.getParameter("contraseña");
-        if("admin".equals(user)&& "12345".equals(pass)){
-           processRequest(request, response, "registro exitoso");
-        }else{
-            processRequest(request, response, "registro inválido");
+
+        String nombre = request.getParameter("nombre");
+        String telefono = request.getParameter("telefono");
+        String cedula = request.getParameter("cedula");
+        /**
+            "response": Este es un objeto de tipo HttpServletResponse que representa la respuesta que se 
+            enviará al cliente."setContentType("text/html")": Este método establece el tipo de contenido de 
+            la respuesta. En este caso, "text/html" indica que la respuesta es un documento HTML.
+         */
+
+         /**
+            En Java, la línea PrintWriter out = response.getWriter(); se utiliza en servlets para obtener 
+            un objeto PrintWriter que permite enviar texto de respuesta al cliente (normalmente un navegador 
+            web).
+         */
+ 
+         /**
+            "response": Este es un objeto de tipo HttpServletResponse, que representa la respuesta que el servidor enviará de vuelta al cliente.
+            "getWriter()": Este método del objeto response devuelve un objeto PrintWriter que puede utilizarse para enviar texto de salida al cliente.
+            PrintWriter out: Aquí se está declarando una variable out de tipo PrintWriter que se usará para escribir la respuesta.
+         */
+        if ("Luis Niebles".equals(nombre) && "3002875078".equals(telefono) && "32300300".equals(cedula)) {
+            // Responder al usuario
+            response.setContentType("text/html");
+            PrintWriter out = response.getWriter();
+            out.println("<html><body>");
+            out.println("<h1>Reserva Confirmada</h1>");
+            out.println("<p>Gracias, " + nombre + ". Tu reserva ha sido realizada con éxito.</p>");//Se encarga de recibir las respuestas
+            out.println("<p>Teléfono: " + telefono + "</p>");
+            out.println("<p>Cédula: " + cedula + "</p>");
+            out.println("</body></html>");
+        } else {
+            processRequest(request, response, "registro inválido"); //Se encarga de recibir las respuestas
         }
     }
 
@@ -77,7 +106,7 @@ public class ReceptorDatos extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       //processRequest(request, response);
+        //processRequest(request, response);
     }
 
     /**
